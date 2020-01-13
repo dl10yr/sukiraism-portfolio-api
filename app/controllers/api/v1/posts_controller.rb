@@ -5,14 +5,33 @@ module Api
       before_action :authenticate_api_v1_user!
 
       def index
-        # posts = Post.page(params[:page] ||= 1).per(10).order('created_at DESC')
-        posts = Post.all
-        # page_length = Post.page(1).per(10).total_pages
-        # json_data = {
-        #   'posts': posts,
-        #   'page_length': page_length,
-        # }
-        render json: { status: 'SUCCESS', message: 'Loaded posts', data: posts}
+        posts = Post.page(params[:page] ||= 1).per(10).order('created_at DESC')
+        page_length = Post.page(1).per(10).total_pages
+        json_data = {
+          'posts': posts,
+          'page_length': page_length,
+        }
+        render json: { status: 'SUCCESS', message: 'Loaded posts', data: json_data}
+      end
+      
+      def suki_index
+        posts = Post.page(params[:page] ||= 1).per(10).order('suki_count DESC')
+        page_length = Post.page(1).per(10).total_pages
+        json_data = {
+          'posts': posts,
+          'page_length': page_length,
+        }
+        render json: { status: 'SUCCESS', message: 'Loaded posts', data: json_data}
+      end
+
+      def all_count_index
+        posts = Post.page(params[:page] ||= 1).per(10).order('all_count DESC')
+        page_length = Post.page(1).per(10).total_pages
+        json_data = {
+          'posts': posts,
+          'page_length': page_length,
+        }
+        render json: { status: 'SUCCESS', message: 'Loaded posts', data: json_data}
       end
 
       def show
