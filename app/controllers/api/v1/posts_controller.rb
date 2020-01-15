@@ -13,7 +13,7 @@ module Api
         }
         render json: { status: 'SUCCESS', message: 'Loaded posts', data: json_data}
       end
-      
+
       def suki_index
         posts = Post.page(params[:page] ||= 1).per(10).order('suki_count DESC')
         page_length = Post.page(1).per(10).total_pages
@@ -62,6 +62,17 @@ module Api
       end
 
       def update
+      end
+
+      def search
+        posts = Post.where("content LIKE ?", "%#{params[:q]}%").page(params[:page] ||= 1).per(10).order('created_at DESC')
+        page_length = Post.where("content LIKE ?", "%#{params[:q]}%").page(params[:page] ||= 1).per(10).total_pages
+        json_data = {
+          posts: posts,
+          page_length: page_length,
+        }
+        render json: { status: 'SUCCESS', message: 'Loaded the posts', data: json_data}
+
       end
 
       private
