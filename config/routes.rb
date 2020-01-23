@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
  namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      # delete 'users', to: 'users#destroy'
+      delete 'users', to: 'users#destroy'
       get 'users/:nickname', to: 'users#show'
       get 'user/currentuser', to: 'users#currentuser'
       get 'users/answered_suki_posts/:nickname', to: 'users#answered_suki_posts'
