@@ -8,4 +8,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:twitter]
   include DeviseTokenAuth::Concerns::User
+
+  enum status:{nonreleased: 0, released: 1}
 end

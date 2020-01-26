@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_12_213211) do
+ActiveRecord::Schema.define(version: 2020_01_26_111717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2020_01_12_213211) do
     t.float "all_count"
     t.float "suki_percent"
     t.index ["all_count"], name: "index_posts_on_all_count"
+    t.index ["content"], name: "index_posts_on_content", unique: true
     t.index ["suki_percent"], name: "index_posts_on_suki_percent"
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(version: 2020_01_12_213211) do
     t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", limit: 2, default: 1, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true

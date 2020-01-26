@@ -5,8 +5,8 @@ module Api
       before_action :authenticate_api_v1_user!
 
       def index
-        posts = Post.page(params[:page] ||= 1).per(10).order('created_at DESC')
-        page_length = Post.page(1).per(10).total_pages
+        posts = Post.page(params[:page] ||= 1).per(20).order('created_at DESC')
+        page_length = Post.page(1).per(20).total_pages
         json_data = {
           'posts': posts,
           'page_length': page_length,
@@ -15,8 +15,8 @@ module Api
       end
 
       def suki_index
-        posts = Post.page(params[:page] ||= 1).per(10).order('suki_count DESC')
-        page_length = Post.page(1).per(10).total_pages
+        posts = Post.page(params[:page] ||= 1).per(20).order('suki_percent DESC NULLS LAST')
+        page_length = Post.page(1).per(20).total_pages
         json_data = {
           'posts': posts,
           'page_length': page_length,
@@ -25,8 +25,8 @@ module Api
       end
 
       def all_count_index
-        posts = Post.page(params[:page] ||= 1).per(10).order('all_count DESC')
-        page_length = Post.page(1).per(10).total_pages
+        posts = Post.page(params[:page] ||= 1).per(20).order('all_count DESC')
+        page_length = Post.page(1).per(20).total_pages
         json_data = {
           'posts': posts,
           'page_length': page_length,
@@ -52,7 +52,7 @@ module Api
         if post.save
           render json: { status: 'SUCCESS', data: post}
         else
-          render json: { status: 'ERROR', data: post.errors }
+          render json: { status: 'ERROR', data: post.errors.full_messages }
         end
       end
 
@@ -65,8 +65,8 @@ module Api
       end
 
       def search
-        posts = Post.where("content LIKE ?", "%#{params[:q]}%").page(params[:page] ||= 1).per(10).order('created_at DESC')
-        page_length = Post.where("content LIKE ?", "%#{params[:q]}%").page(params[:page] ||= 1).per(10).total_pages
+        posts = Post.where("content LIKE ?", "%#{params[:q]}%").page(params[:page] ||= 1).per(20).order('created_at DESC')
+        page_length = Post.where("content LIKE ?", "%#{params[:q]}%").page(params[:page] ||= 1).per(20).total_pages
         json_data = {
           posts: posts,
           page_length: page_length,
