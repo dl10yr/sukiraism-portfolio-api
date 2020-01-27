@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       get 'users/answered_suki_posts/:nickname', to: 'users#answered_suki_posts'
       get 'users/answered_kirai_posts/:nickname', to: 'users#answered_kirai_posts'
       # get 'users/not_interested_posts/:nickname', to: 'users#not_interested_posts'
+      put 'users/update_privacy', to: 'users#update_privacy'
+
       get 'users/user_posts/:nickname', to: 'users#user_posts'
       get 'not_answered_posts', to: 'users#not_answered_posts'
 
@@ -26,6 +28,8 @@ Rails.application.routes.draw do
       post 'likes', to: 'likes#create'
       put 'likes/post/:post_id', to: 'likes#update'
       get 'likes/post/:post_id/user/:uid', to: 'likes#show'
+
+
 
     end
  end

@@ -116,6 +116,19 @@ module Api
         render json: {status: 'SUCCESS', message: 'Loaded the user_posts', data: json_data}
       end
 
+      def update_privacy
+        @user = current_api_v1_user
+        if @user.released? then
+          @user.nonreleased!
+        else
+          @user.released! 
+        end
+        
+        render json: { status: 'SUCCESS', message: 'Updated the post', data: @user }
+
+
+      end
+
     end
   end
 end
