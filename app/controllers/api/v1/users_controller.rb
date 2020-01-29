@@ -51,6 +51,7 @@ module Api
 
       def answered_kirai_posts
         @user = User.find_by(nickname: params[:nickname])
+        @currentuser = current_api_v1_user
         answered_kirai_posts_id = "SELECT post_id from likes WHERE user_id = :user_id and suki = 0"
         answered_kirai_posts = Post.where("id IN (#{answered_kirai_posts_id})", user_id: @user.id).page(params[:page] ||= 1).per(20).order('created_at DESC')
         page_length = Post.where("id IN (#{answered_kirai_posts_id})", user_id: @user.id).page(params[:page] ||= 1).per(20).total_pages
@@ -99,6 +100,7 @@ module Api
       
       def user_posts
         @user = User.find_by(nickname: params[:nickname])
+        @currentuser = current_api_v1_user
         user_posts = Post.where(user_id: @user.id).page(params[:page] ||= 1).per(20).order('created_at DESC')
         page_length = Post.where(user_id: @user.id).page(params[:page] ||= 1).per(20).total_pages
         
