@@ -2,7 +2,7 @@ module Api
   module V1
     class PostsController < ApplicationController
       before_action :set_post, only: [:show, :update, :destroy]
-      before_action :authenticate_api_v1_user!
+      before_action :authenticate_api_v1_user!, except: [:index, :suki_index, :all_count_index, :show]
 
       def index
         posts = Post.page(params[:page] ||= 1).per(20).order('created_at DESC')
